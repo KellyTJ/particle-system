@@ -6,26 +6,28 @@ let env = {
 let svg = "http://w3.org/2000/svg";
 
 class Particle {
-  constructor(c) {
-    this.scrp = c.script || function () {};
+  constructor ({x =  env.w / 2, y = env.h / 2,xVel=0,yVel=0, 
+  gravY=0.1,bounce=0.75,timeToLive=60,friction=0.075,
+  color="black",respawn=false,stroke="black",gravX=0,script=function(){}}={}) {
+    this.scrp = script;
 
-    this.x = c.x || env.w / 2;
-    this.col = c.color;
-    this.y = c.y || env.h / 2;
-    this.xv = c.xVel || 0;
-    this.yv = c.yVel || 0;
-    this.gy = c.gravY || env.gravY || 0.1;
-    this.b = c.bounce || 0.75;
-    this.liveTime = c.timeToLive || 60;
-    this.f = c.friction || 0.075;
-    this.respwn = c.respawn;
+    this.x = x;
+    this.col = color;
+    this.y = y;
+    this.xv = xVel;
+    this.yv = yVel;
+    this.gy = gravY;
+    this.b = bounce;
+    this.liveTime = timeToLive;
+    this.f = friction;
+    this.respwn = respawn;
     this.ground = false;
-    this.str = c.stroke;
+    this.str = stroke;
     this.time = 0;
 
     this.spwntime = Date.now();
     this.update();
-    this.gx = c.gravX || env.gravX;
+    this.gx = gravX;
   }
 
   update() {
